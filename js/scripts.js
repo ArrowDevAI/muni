@@ -1,4 +1,4 @@
-alert ('Welcome to Mosey Golf');
+alert ('Welcome to Muni');
 let teeTime = "Golf";
 document.write (teeTime)
 
