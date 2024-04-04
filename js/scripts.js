@@ -9,3 +9,5 @@ let userHandicaps = [
   {name:"trevor", handicap:22},
   {name:"charlie", handicap :15}
 ];
+
+document.write (userHandicaps)
