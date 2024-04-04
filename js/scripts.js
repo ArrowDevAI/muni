@@ -3,10 +3,10 @@ let teeTime = "Golf";
 document.write (teeTime)
 
 let userHandicaps = [
-  {name:"tommy", handicap:24},
-  {name:"kyle", handicap:7},
-  {name:"jeff", handicap:11},
-  {name:"trevor", handicap:22},
-  {name:"charlie", handicap:15},
-  {name: "justin", handicap:20}
+  {name:"tommy", handicap:24, bestCourse:"Silverbell"},
+  {name:"kyle", handicap:7, bestCourse:"Randolph"},
+  {name:"jeff", handicap:11, bestCourse:"Del Urich"},
+  {name:"trevor", handicap:22, bestCourse:"Fred Enke"},
+  {name:"charlie", handicap:15, bestCourse:"El Rio"},
+  {name: "justin", handicap:20, bestCourse:"Randolph"}
 ];
