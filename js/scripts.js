@@ -10,10 +10,16 @@ let golfers = [
   { name: "Justin", handicap: 20, bestCourse: "Randolph North" }
 ];
 for (let i = 0; i<golfers.length; i++){
-  document.write ((golfers[i].name) + " has a handicap of " + (golfers[i].handicap) + " and their best course is " + 
-  (golfers[i].bestCourse))
+  if (golfers[i].handicap <8 ){
+    document.write (golfers[i].name + "'s in a group of 5% that break 80");
+  } if (golfers[i].handicap >8 && golfers[i].handicap <18){
+  document.write (golfers[i].name + "'s in a group of 25% that break 90");
+  } if(golfers[i].handicap <28 &&golfers[i].handicap >18){
+    document.write (golfers[i].name + "'s in a group of 50% that break 100")
+  }
 }
 
+//LOWEST SCORES PAGE
 
 //Fred Enke
 let lowestscorefred = "Today's Lowest Score on Fred Enke: ";
@@ -46,5 +52,4 @@ if (randolphscore > randolphpar) {
 }
 else if ((randolphscore < randolphpar) && (randolphscore !== '')) {
 (randolphscore - randolphpar)};
-
   
