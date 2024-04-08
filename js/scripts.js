@@ -37,9 +37,111 @@ so...initialization starts the loop, condition is checked, THEN THE {} code runs
 
 //LOWEST SCORES PAGE
 
-//Fred Enke these scores will need to be generated from funtions with a return when possible.
+//Course arrays : 
+let courseFredArray = [
+  {name: "Hole 1", Par: 4},
+  {name: "Hole 2", Par: 5},
+  {name: "Hole 3", Par: 3},
+  {name: "Hole 4", Par: 4},
+  {name: "Hole 5", Par: 4},
+  {name: "Hole 6", Par: 3},
+  {name: "Hole 7", Par: 4},
+  {name: "Hole 8", Par: 4},
+  {name: "Hole 9", Par: 5},
+  {name: "Hole 10", Par: 4},
+  {name: "Hole 11", Par: 3},
+  {name: "Hole 12", Par: 5},
+  {name: "Hole 13", Par: 4},
+  {name: "Hole 14", Par: 5},
+  {name: "Hole 15", Par: 3},
+  {name: "Hole 16", Par: 4},
+  {name: "Hole 17", Par: 4},
+  {name: "Hole 18", Par: 4},
+];
+let courseElrioArray = [
+  {name: "Hole 1", Par: 4},
+  {name: "Hole 2", Par: 4},
+  {name: "Hole 3", Par: 4},
+  {name: "Hole 4", Par: 3},
+  {name: "Hole 5", Par: 4},
+  {name: "Hole 6", Par: 3},
+  {name: "Hole 7", Par: 4},
+  {name: "Hole 8", Par: 4},
+  {name: "Hole 9", Par: 5},
+  {name: "Hole 10", Par: 4},
+  {name: "Hole 11", Par: 4},
+  {name: "Hole 12", Par: 4},
+  {name: "Hole 13", Par: 3},
+  {name: "Hole 14", Par: 4},
+  {name: "Hole 15", Par: 4},
+  {name: "Hole 16", Par: 4},
+  {name: "Hole 17", Par: 3},
+  {name: "Hole 18", Par: 5},
+];
+let courseRandolphArray = [
+  {name: "Hole 1", Par: 4},
+  {name: "Hole 2", Par: 4},
+  {name: "Hole 3", Par: 5},
+  {name: "Hole 4", Par: 4},
+  {name: "Hole 5", Par: 4},
+  {name: "Hole 6", Par: 3},
+  {name: "Hole 7", Par: 4},
+  {name: "Hole 8", Par: 3},
+  {name: "Hole 9", Par: 5},
+  {name: "Hole 10", Par: 4},
+  {name: "Hole 11", Par: 3},
+  {name: "Hole 12", Par: 4},
+  {name: "Hole 13", Par: 5},
+  {name: "Hole 14", Par: 4},
+  {name: "Hole 15", Par: 3},
+  {name: "Hole 16", Par: 5},
+  {name: "Hole 17", Par: 4},
+  {name: "Hole 18", Par: 4},
+];
+let courseDelArray = [
+  {name: "Hole 1", Par: 4},
+  {name: "Hole 2", Par: 3},
+  {name: "Hole 3", Par: 5},
+  {name: "Hole 4", Par: 4},
+  {name: "Hole 5", Par: 3},
+  {name: "Hole 6", Par: 5},
+  {name: "Hole 7", Par: 4},
+  {name: "Hole 8", Par: 4},
+  {name: "Hole 9", Par: 3},
+  {name: "Hole 10", Par: 4},
+  {name: "Hole 11", Par: 3},
+  {name: "Hole 12", Par: 4},
+  {name: "Hole 13", Par: 5},
+  {name: "Hole 14", Par: 4},
+  {name: "Hole 15", Par: 4},
+  {name: "Hole 16", Par: 4},
+  {name: "Hole 17", Par: 3},
+  {name: "Hole 18", Par: 4},
+];
+let courseSilverbellArray = [
+  {name: "Hole 1", Par: 4},
+  {name: "Hole 2", Par: 5},
+  {name: "Hole 3", Par: 3},
+  {name: "Hole 4", Par: 4},
+  {name: "Hole 5", Par: 4},
+  {name: "Hole 6", Par: 3},
+  {name: "Hole 7", Par: 5},
+  {name: "Hole 8", Par: 4},
+  {name: "Hole 9", Par: 3},
+  {name: "Hole 10", Par: 4},
+  {name: "Hole 11", Par: 4},
+  {name: "Hole 12", Par: 3},
+  {name: "Hole 13", Par: 4},
+  {name: "Hole 14", Par: 4},
+  {name: "Hole 15", Par: 4},
+  {name: "Hole 16", Par: 3},
+  {name: "Hole 17", Par: 4},
+  {name: "Hole 18", Par: 5},
+];
 
-let fredScore = 80
+//functions will need to be generated from these variable with a return of the highest score logged, respectively
+
+let fredScore = 90
 let randolphScore=76
 let delScore= 68
 let silverbellScore= 93
@@ -48,7 +150,7 @@ let elrioScore= 100
 function lowestScore72(course) {
   let par = 72
   if (course == false) {
-    document.write('No Scores Posted Today')
+    document.write ('No Scores Posted Today')
   }
   if (course > par) {
     document.write("+", course - par)
@@ -78,3 +180,4 @@ document.write ("Lowest score of the day: ") + lowestScore72(randolphScore)
 document.write ("Lowest score of the day: ") + lowestScore70(delScore)
 document.write ("Lowest score of the day: ") + lowestScore70(silverbellScore)
 document.write ("Lowest score of the day: ") + lowestScore70(elrioScore)
+
