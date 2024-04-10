@@ -1,183 +1,224 @@
 
 
 //alert ('Welcome to Muni.');
-let maleGolfers = [
-  { name: "Tommy", handicap: 24, besCourse: "Silverbell" },
+
+//Need to define Handicap and Best Course Algorithm 
+
+//Course arrays : 
+let courseFredArray = [
+  { name: "Hole 1", Par: 4 },
+  { name: "Hole 2", Par: 5 },
+  { name: "Hole 3", Par: 3 },
+  { name: "Hole 4", Par: 4 },
+  { name: "Hole 5", Par: 4 },
+  { name: "Hole 6", Par: 3 },
+  { name: "Hole 7", Par: 4 },
+  { name: "Hole 8", Par: 4 },
+  { name: "Hole 9", Par: 5 },
+  { name: "Hole 10", Par: 4 },
+  { name: "Hole 11", Par: 3 },
+  { name: "Hole 12", Par: 5 },
+  { name: "Hole 13", Par: 4 },
+  { name: "Hole 14", Par: 5 },
+  { name: "Hole 15", Par: 3 },
+  { name: "Hole 16", Par: 4 },
+  { name: "Hole 17", Par: 4 },
+  { name: "Hole 18", Par: 4 },
+];
+let courseElrioArray = [
+  { name: "Hole 1", Par: 4 },
+  { name: "Hole 2", Par: 4 },
+  { name: "Hole 3", Par: 4 },
+  { name: "Hole 4", Par: 3 },
+  { name: "Hole 5", Par: 4 },
+  { name: "Hole 6", Par: 3 },
+  { name: "Hole 7", Par: 4 },
+  { name: "Hole 8", Par: 4 },
+  { name: "Hole 9", Par: 5 },
+  { name: "Hole 10", Par: 4 },
+  { name: "Hole 11", Par: 4 },
+  { name: "Hole 12", Par: 4 },
+  { name: "Hole 13", Par: 3 },
+  { name: "Hole 14", Par: 4 },
+  { name: "Hole 15", Par: 4 },
+  { name: "Hole 16", Par: 4 },
+  { name: "Hole 17", Par: 3 },
+  { name: "Hole 18", Par: 5 },
+];
+let courseRandolphArray = [
+  { name: "Hole 1", Par: 4 },
+  { name: "Hole 2", Par: 4 },
+  { name: "Hole 3", Par: 5 },
+  { name: "Hole 4", Par: 4 },
+  { name: "Hole 5", Par: 4 },
+  { name: "Hole 6", Par: 3 },
+  { name: "Hole 7", Par: 4 },
+  { name: "Hole 8", Par: 3 },
+  { name: "Hole 9", Par: 5 },
+  { name: "Hole 10", Par: 4 },
+  { name: "Hole 11", Par: 3 },
+  { name: "Hole 12", Par: 4 },
+  { name: "Hole 13", Par: 5 },
+  { name: "Hole 14", Par: 4 },
+  { name: "Hole 15", Par: 3 },
+  { name: "Hole 16", Par: 5 },
+  { name: "Hole 17", Par: 4 },
+  { name: "Hole 18", Par: 4 },
+];
+let courseDelArray = [
+  { name: "Hole 1", Par: 4 },
+  { name: "Hole 2", Par: 3 },
+  { name: "Hole 3", Par: 5 },
+  { name: "Hole 4", Par: 4 },
+  { name: "Hole 5", Par: 3 },
+  { name: "Hole 6", Par: 5 },
+  { name: "Hole 7", Par: 4 },
+  { name: "Hole 8", Par: 4 },
+  { name: "Hole 9", Par: 3 },
+  { name: "Hole 10", Par: 4 },
+  { name: "Hole 11", Par: 3 },
+  { name: "Hole 12", Par: 4 },
+  { name: "Hole 13", Par: 5 },
+  { name: "Hole 14", Par: 4 },
+  { name: "Hole 15", Par: 4 },
+  { name: "Hole 16", Par: 4 },
+  { name: "Hole 17", Par: 3 },
+  { name: "Hole 18", Par: 4 },
+];
+let courseSilverbellArray = [
+  { name: "Hole 1", Par: 4 },
+  { name: "Hole 2", Par: 5 },
+  { name: "Hole 3", Par: 3 },
+  { name: "Hole 4", Par: 4 },
+  { name: "Hole 5", Par: 4 },
+  { name: "Hole 6", Par: 3 },
+  { name: "Hole 7", Par: 5 },
+  { name: "Hole 8", Par: 4 },
+  { name: "Hole 9", Par: 3 },
+  { name: "Hole 10", Par: 4 },
+  { name: "Hole 11", Par: 4 },
+  { name: "Hole 12", Par: 3 },
+  { name: "Hole 13", Par: 4 },
+  { name: "Hole 14", Par: 4 },
+  { name: "Hole 15", Par: 4 },
+  { name: "Hole 16", Par: 3 },
+  { name: "Hole 17", Par: 4 },
+  { name: "Hole 18", Par: 5 },
+];
+
+//functions will need to be generated from these variable with a return of the highest score logged, respectively
+
+let fredScore = 20
+let randolphScore = 68
+let delScore = 63
+let silverbellScore = 65
+let elrioScore = 78
+
+function lowestScore(par, course) {
+  if (isNaN(course)) {
+    return ('No Scores Posted Today');
+  }
+  else if (course > par) {
+    return "Lowest Score: +" + (course - par);
+  }
+  else if (course === par) {
+    return "Lowest Score: Even Par"
+  }
+  else if ((course < par) && (course !== ''))//this is a chained condiion when "fredscore" is not ' '
+  {
+    return "Lowest Score: " + (course - par);
+  }
+  if (course === '') {
+    return "No Scores Posted Today"
+  }
+}
+
+let fredLow = lowestScore(72, fredScore)
+let elrioLow = lowestScore(70, elrioScore)
+let delLow = lowestScore(70, delScore)
+let randolphLow = lowestScore(72, randolphScore)
+let silverbellLow = lowestScore(70, silverbellScore)
+/*console.log (fredLow)
+  console.log (randolphLow)
+  console.log (silverbellLow)
+  console.log (delLow)
+  console.log (elrioLow) */
+
+/* femaleGolfers.forEach(function (user) {
+console.log(user.name + ' has a handicap of ' + user.handicap);
+});  /*In this forEach() method the anonymous funtion is iterated over each item in the array there can only be one
+  parameter and in this case it is "user"*/ 
+
+
+function handicapPercentages(list) {
+  let messages = [];
+
+  list.forEach(function(player) {
+    if (player.handicap < 8) {
+      messages.push(player.name + "'s in a group of 5% that break 80");
+    } else if (player.handicap >= 8 && player.handicap < 18) {
+      messages.push(player.name + "'s in a group of 25% that break 90");
+    } else if (player.handicap >= 18 && player.handicap < 28) {
+      messages.push(player.name + "'s in a group of 50% that break 100");
+    }
+  });
+
+  return messages;
+}
+
+
+
+let maleGolfersRepo = (function (){
+  
+  let maleGolfers = [
+  { name: "Tommy", handicap: 24, bestCourse: "Silverbell" },
   { name: "Kyle", handicap: 7, bestCourse: "Randolph North" },
   { name: "Jeff", handicap: 11, bestCourse: "Dell Urich" },
   { name: "Trevor", handicap: 22, bestCourse: "Fred Enke" },
   { name: "Charlie", handicap: 15, bestCourse: "El Rio" },
   { name: "Justin", handicap: 20, bestCourse: "Randolph North" }
-];
+  ];
+function getMaleGolfers (){
+return maleGolfers;
+}
+function add(golfer) {
+maleGolfers.push (golfer);
+}
+return {
+  getMaleGolfers: getMaleGolfers,
+  add: add
+}
+
+})()
+
+let femaleGolfersRepo= (function() {
 
 let femaleGolfers = [
   { name: "Sofia", handicap: 24, besCourse: "Silverbell" },
   { name: "Rachel", handicap: 7, bestCourse: "Randolph North" },
   { name: "Emily", handicap: 11, bestCourse: "Dell Urich" },
   { name: "Tracy", handicap: 22, bestCourse: "Fred Enke" },
+];
+ function getFemaleGolfers(){
+  return femaleGolfers;
+ }
+ function add (golfer) {
+  femaleGolfers.push (golfer);
+ }
 
-]
-
-function handicapPercentages(list) {
-  for (let i = 0; i < list.length; i++) {
-    if (list[i].handicap < 8) {
-      document.write(list[i].name + "'s in a group of 5% that break 80");
-    } if (list[i].handicap > 8 && list[i].handicap < 18) {
-      document.write(list[i].name + "'s in a group of 25% that break 90");
-    } if (list[i].handicap < 28 && list[i].handicap > 18) {
-      document.write(list[i].name + "'s in a group of 50% that break 100")
-    }
-  }
+return {
+  add: add,
+  getFemaleGolfers: getFemaleGolfers
 }
-document.write; handicapPercentages(maleGolfers);
-document.write; handicapPercentages(femaleGolfers);
 
-/* FOR THE CODE ABOVE....Initialization (let i=0) ; Condition i<golfers.length ; Action ; i++ which is i=i+1
-so...initialization starts the loop, condition is checked, THEN THE {} code runs, the action*/
+})();
 
-//LOWEST SCORES PAGE
+(maleGolfersRepo.getMaleGolfers()).forEach (function(golfer) {
+  console.log(golfer)
+});
 
-//Course arrays : 
-let courseFredArray = [
-  {name: "Hole 1", Par: 4},
-  {name: "Hole 2", Par: 5},
-  {name: "Hole 3", Par: 3},
-  {name: "Hole 4", Par: 4},
-  {name: "Hole 5", Par: 4},
-  {name: "Hole 6", Par: 3},
-  {name: "Hole 7", Par: 4},
-  {name: "Hole 8", Par: 4},
-  {name: "Hole 9", Par: 5},
-  {name: "Hole 10", Par: 4},
-  {name: "Hole 11", Par: 3},
-  {name: "Hole 12", Par: 5},
-  {name: "Hole 13", Par: 4},
-  {name: "Hole 14", Par: 5},
-  {name: "Hole 15", Par: 3},
-  {name: "Hole 16", Par: 4},
-  {name: "Hole 17", Par: 4},
-  {name: "Hole 18", Par: 4},
-];
-let courseElrioArray = [
-  {name: "Hole 1", Par: 4},
-  {name: "Hole 2", Par: 4},
-  {name: "Hole 3", Par: 4},
-  {name: "Hole 4", Par: 3},
-  {name: "Hole 5", Par: 4},
-  {name: "Hole 6", Par: 3},
-  {name: "Hole 7", Par: 4},
-  {name: "Hole 8", Par: 4},
-  {name: "Hole 9", Par: 5},
-  {name: "Hole 10", Par: 4},
-  {name: "Hole 11", Par: 4},
-  {name: "Hole 12", Par: 4},
-  {name: "Hole 13", Par: 3},
-  {name: "Hole 14", Par: 4},
-  {name: "Hole 15", Par: 4},
-  {name: "Hole 16", Par: 4},
-  {name: "Hole 17", Par: 3},
-  {name: "Hole 18", Par: 5},
-];
-let courseRandolphArray = [
-  {name: "Hole 1", Par: 4},
-  {name: "Hole 2", Par: 4},
-  {name: "Hole 3", Par: 5},
-  {name: "Hole 4", Par: 4},
-  {name: "Hole 5", Par: 4},
-  {name: "Hole 6", Par: 3},
-  {name: "Hole 7", Par: 4},
-  {name: "Hole 8", Par: 3},
-  {name: "Hole 9", Par: 5},
-  {name: "Hole 10", Par: 4},
-  {name: "Hole 11", Par: 3},
-  {name: "Hole 12", Par: 4},
-  {name: "Hole 13", Par: 5},
-  {name: "Hole 14", Par: 4},
-  {name: "Hole 15", Par: 3},
-  {name: "Hole 16", Par: 5},
-  {name: "Hole 17", Par: 4},
-  {name: "Hole 18", Par: 4},
-];
-let courseDelArray = [
-  {name: "Hole 1", Par: 4},
-  {name: "Hole 2", Par: 3},
-  {name: "Hole 3", Par: 5},
-  {name: "Hole 4", Par: 4},
-  {name: "Hole 5", Par: 3},
-  {name: "Hole 6", Par: 5},
-  {name: "Hole 7", Par: 4},
-  {name: "Hole 8", Par: 4},
-  {name: "Hole 9", Par: 3},
-  {name: "Hole 10", Par: 4},
-  {name: "Hole 11", Par: 3},
-  {name: "Hole 12", Par: 4},
-  {name: "Hole 13", Par: 5},
-  {name: "Hole 14", Par: 4},
-  {name: "Hole 15", Par: 4},
-  {name: "Hole 16", Par: 4},
-  {name: "Hole 17", Par: 3},
-  {name: "Hole 18", Par: 4},
-];
-let courseSilverbellArray = [
-  {name: "Hole 1", Par: 4},
-  {name: "Hole 2", Par: 5},
-  {name: "Hole 3", Par: 3},
-  {name: "Hole 4", Par: 4},
-  {name: "Hole 5", Par: 4},
-  {name: "Hole 6", Par: 3},
-  {name: "Hole 7", Par: 5},
-  {name: "Hole 8", Par: 4},
-  {name: "Hole 9", Par: 3},
-  {name: "Hole 10", Par: 4},
-  {name: "Hole 11", Par: 4},
-  {name: "Hole 12", Par: 3},
-  {name: "Hole 13", Par: 4},
-  {name: "Hole 14", Par: 4},
-  {name: "Hole 15", Par: 4},
-  {name: "Hole 16", Par: 3},
-  {name: "Hole 17", Par: 4},
-  {name: "Hole 18", Par: 5},
-];
 
-//functions will need to be generated from these variable with a return of the highest score logged, respectively
 
-let fredScore = 90
-let randolphScore=76
-let delScore= 68
-let silverbellScore= 93
-let elrioScore= 100
-
-function lowestScore72(course) {
-  let par = 72
-  if (course == false) {
-    document.write ('No Scores Posted Today')
-  }
-  if (course > par) {
-    document.write("+", course - par)
-  }
-  else if ((course < par) && (course !== ''))//this is a chained condiion when "fredscore" is not ' '
-  {
-    document.write(course - par)
-  }
-
-}
-function lowestScore70(course) {
-  let par = 70
-  if (course == false) {
-    document.write('No Scores Posted Today')
-  }
-  if (course > par) {
-    document.write("+", course - par)
-  }
-  else if ((course < par) && (course !== ''))//this is a chained condiion when "fredscore" is not ' '
-  {
-    document.write(course - par)
-  }
-
-}
-document.write ("Lowest score of the day: ") + lowestScore72(fredScore)
-document.write ("Lowest score of the day: ") + lowestScore72(randolphScore)
-document.write ("Lowest score of the day: ") + lowestScore70(delScore)
-document.write ("Lowest score of the day: ") + lowestScore70(silverbellScore)
-document.write ("Lowest score of the day: ") + lowestScore70(elrioScore)
-
+(femaleGolfersRepo.getFemaleGolfers()).forEach(function(golfer){
+  console.log (golfer)
+});
