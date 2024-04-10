@@ -209,7 +209,7 @@ let femaleGolfers = [
 return {
   add: add,
   getFemaleGolfers: getFemaleGolfers
-}
+} 
 
 })();
 
