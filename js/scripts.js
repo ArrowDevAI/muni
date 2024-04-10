@@ -210,7 +210,6 @@ return {
   add: add,
   getFemaleGolfers: getFemaleGolfers
 } 
-
 })();
 
 (maleGolfersRepo.getMaleGolfers()).forEach (function(golfer) {
