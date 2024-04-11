@@ -1,0 +1,39 @@
+
+body {
+    background-color: #f1f3f5;
+    font-family: "Strait", sans-serif;
+    /*code copied in from google fonts*/
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 1.2;
+    color: #000000;
+    margin-left: 20px;
+    text-decoration:none;
+  }
+  
+.navigation-list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    list-style: none;
+    clear: both;
+    gap: 10px;
+    -webkit-box-pack: right;
+        -ms-flex-pack: right;
+            justify-content: center;
+    padding-right: 10px;
+    text-decoration: none;
+  }
+  a {
+    color: #5c7640;
+
+  
+  a:visited {
+    color: #000000;
+  }
+}
+
+.elrioScores, .fredScores, .delScores, .silverbellScores, .randolphScores {
+    text-align: center;
+}
