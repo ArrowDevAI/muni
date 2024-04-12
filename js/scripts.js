@@ -120,11 +120,27 @@ return courses;
 function addCourse(newCourse){
   courses.push(newCourse)
 }
+function addListItem(course) {
+let courseList= document.querySelector(".courseList")
+let listCourse = document.createElement("li");
+let button= document.createElement("button");
+button.innerText=course.name
+button.classList.add('button-class');
+listCourse.appendChild(button);
+courseList.appendChild(listCourse);
+}
+
 return {
   addCourse: addCourse,
-  getCourses:getCourses
+  getCourses:getCourses,
+  addListItem:addListItem
 }
 })();
+
+
+coursesRepo.getCourses().forEach (function(course){
+coursesRepo.addListItem(course)
+ });
 
 
 let maleGolfersRepo = (function (){
@@ -243,6 +259,5 @@ function handicapPercentages(list) {
 (femaleGolfersRepo.getFemaleGolfers()).forEach(function(golfer){
   console.log (golfer)
 });
-
 
 
