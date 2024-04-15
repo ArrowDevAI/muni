@@ -121,6 +121,11 @@ let courseRepo = (function (){
   button.classList.add('button-class');
   listCourse.appendChild(button);
   courseList.appendChild(listCourse);
+  button.addEventListener("click",showDetails)
+  }
+  function showDetails(course){
+    console.log(course)
+  
   }
   
   return {
@@ -134,19 +139,5 @@ let courseRepo = (function (){
   courseRepo.getCourses().forEach (function(course){
   courseRepo.addListItem(course)
    });
-  
-  
-    let messages = [];
-  
-    list.forEach(function(player) {
-      if (player.handicap < 8) {
-        messages.push(player.name + "'s in a group of 5% that break 80");
-      } else if (player.handicap >= 8 && player.handicap < 18) {
-        messages.push(player.name + "'s in a group of 25% that break 90");
-      } else if (player.handicap >= 18 && player.handicap < 28) {
-        messages.push(player.name + "'s in a group of 50% that break 100");
-      }
-    });
- 
-  
-  
+
+   
