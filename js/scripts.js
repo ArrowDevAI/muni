@@ -136,32 +136,6 @@ let courseRepo = (function (){
    });
   
   
-  
-  let fredScore = 20
-  let randolphScore = 68
-  let delScore = 63
-  let silverbellScore = 65
-  let elrioScore = 78
-  
-  function lowestScore(par, course) {
-    if (isNaN(course)) {
-      return ('No Scores Posted Today');
-    }
-    else if (course > par) {
-      return "Lowest Score: +" + (course - par);
-    }
-    else if (course === par) {
-      return "Lowest Score: Even Par"
-    }
-    else if ((course < par) && (course !== ''))//this is a chained condiion when "fredscore" is not ' '
-    {
-      return "Lowest Score: " + (course - par);
-    }
-    if (course === '') {
-      return "No Scores Posted Today"
-    }
-  }
-
     let messages = [];
   
     list.forEach(function(player) {
