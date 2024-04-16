@@ -125,12 +125,11 @@ let courseRepo = (function (){
   }
   function showDetails(course){
     console.log(course)
-  
   }
   
   return {
-    addCourse: addCourse,
-    getCourses:getCourses,
+    add: addCourse,
+    getAll:getCourses,
     addListItem:addListItem
   }
   })();
