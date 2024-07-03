@@ -1,6 +1,6 @@
 
 body {
-    background-color: #f1f3f5;
+    background-color: #ffffff;
     font-weight: 300;
     font-style: normal;
     font-size: 18px;
@@ -15,11 +15,7 @@ body {
     text-decoration: none;
     
   }
-  main {
-      text-align: center;
 
-      }
-      
 .navigation-list {
     color: #000000;
     display: -webkit-box;
@@ -78,4 +74,13 @@ li {
  margin-right: 200px;
  text-align: center;
  justify-content: center;
+}
+
+.whatCourse {
+    text-align: center;
+margin-right: 150px;
+margin-top: 75px;
+font-size:  25px;
+font-weight: bolder;
+text-transform: uppercase;
 }

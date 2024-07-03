@@ -106,7 +106,17 @@ let courseRepo = (function (){
   {name: "Del Urich", holes: courseDelArray},
   {name: "Silverbell", holes: courseSilverbellArray}];
   
-  
+  function add(course) {
+    if (
+      typeof course === "object" &&
+      "name" && "holes" in course
+    ) {
+      courses.push(course);
+    } else {
+      console.log("course format not correct");
+    }
+  }
+
   function getCourses(){
   return courses;
   }
@@ -121,21 +131,16 @@ let courseRepo = (function (){
   button.classList.add('button-class');
   listCourse.appendChild(button);
   courseList.appendChild(listCourse);
-  button.addEventListener("click",showDetails)
   }
-  function showDetails(course){
-    console.log(course)
-  }
-  
+
   return {
     add: addCourse,
     getAll:getCourses,
     addListItem:addListItem
   }
   })();
+
   
-  
-  courseRepo.getCourses().forEach (function(course){
+  courseRepo.getAll().forEach (function(course){
   courseRepo.addListItem(course)
    });
-
