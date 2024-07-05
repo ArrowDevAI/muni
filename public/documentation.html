@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Muni.</title>
+</head>
+
+        <body>
+<h2>Muni API Endpoints</h2>
+<!--Table for Endpoints-->
+<table>
+    <!--Table Headers-->
+<tr> 
+    <th>Request</th>
+    <th>URL</th>
+    <th>HTTP Method</th>
+    <th>Request Body Data Format</th>
+    <th>Response Body Data Format</th>
+</tr>
+<!--Populated Rows-->
+<tr>
+    <td>Allow new users to register</td>
+    <td>/users </td>
+    <td>POST</td>
+    <td>  {<br>
+    "Username": "string", <br>
+    "Password": "string", <br>
+    "Email": "string", <br>
+    "Birthday": "string" <br>
+    }
+</td>
+    <td>A text response of the added username only + "added"</td>
+</tr>
+
+</table>
+
+        </body>
+</html>

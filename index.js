@@ -4,27 +4,57 @@ const app = express();
 const router = express.Router();
 
 //Creation of a log
-const morgan = require ('morgan');
+const path = require('path');
+const fs = require('fs');
+const morgan = require('morgan');
 const accessLogStream = fs.createWriteStream(path.join(__dirname, '/public/log.txt'), { flags: 'a' })
-const path = require ('path');
-const fs = require ('fs');
 app.use(morgan('common', { stream: accessLogStream }))
 app.use(express.static('public'));
 
 //Using Models
-const models = require ('./models.js');
-const mongoose = require ('mongoose');
+const models = require('./models.js');
+const mongoose = require('mongoose');
 let Users = models.User;
+let Scores = models.Score;
 
 //Validate forms
-const {check, validationResult} = require ('express-validator');
+const { check, validationResult } = require('express-validator');
+
 
 
 //MongoDB Initializing (remember to set environement variable for CONNECTION_URI in API host)
-mongoose.connect(process.env.CONNECTION_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://localhost:27017/munidb', { useNewUrlParser: true, useUnifiedTopology: true });
 
+//CORS Module
+const cors = require('cors');
+let allowedOrigins = ['http://127.0.0.1:8080/']
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) === -1) {
+            let message = 'The CORS policy for this application does not allow access from origin ' + origin;
+            return callback(new Error(message), false);
+        }
+        return callback(null, true);
+    }
+}));
 
-bodyParser = require('body-parser');
-uuid = require('uuid');
+//Authorization
+const passport = require('passport');
+let auth = require('./auth')(app);
+require('./passport');
 
-app.use(express.urlencoded({extended: true}));
+//Parsing and identifying Middleware 
+const uuid = require('uuid');
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+//Routes
+const routes = require('./routes');
+app.use('/', routes);
+
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+    console.log('Listening on port ', port);
+});
+

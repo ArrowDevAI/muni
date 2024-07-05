@@ -1,7 +1,9 @@
 const express = require ('express');
-const { check, validationResult} = require('express-validator');
+const { check, validationResult } = require('express-validator');
 const router = express.Router();
- 
+const models = require ('./models')
+let Users= models.User;
+let Scores = models.Score;
 
 router.post('/users',
     [
@@ -16,14 +18,14 @@ router.post('/users',
             return res.status(422).json({ errors: errors.array() });
         }
         let hashedPassword = Users.hashPassword(req.body.Password);
-        await Users.findOne({ Userame: req.body.Username })
+        await Users.findOne({ Username: req.body.Username })
             .then((user) => {
                 if (user) {
-                    return res.status(400).send(req.body.Username + 'alread exists');
+                    return res.status(400).send(req.body.Username + ' already exists');
                 } else {
                     Users.create({
                         Username: req.body.Username,
-                        Password: req.body.Password,
+                        Password: hashedPassword,
                         Email: req.body.Email,
                         Birthday: req.body.Birthday
                     })
@@ -41,6 +43,5 @@ router.post('/users',
                 res.status(500).send('Error ' + err);
             });
     });
-
 
     module.exports = router;
