@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,9 +20,25 @@
     "lodash": "^4.17.21",
     "mongoose": "^8.4.4",
     "morgan": "^1.10.0",
+    "nodemon": "^3.1.4",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "assert": "^2.1.0",
+    "browserify-zlib": "^0.2.0",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
+    "events": "^3.3.0",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10",
+    "querystring-es3": "^0.2.1",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.4",
+    "util": "^0.12.5"
   }
 }

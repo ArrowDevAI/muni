@@ -9,7 +9,9 @@ const fs = require('fs');
 const morgan = require('morgan');
 const accessLogStream = fs.createWriteStream(path.join(__dirname, '/public/log.txt'), { flags: 'a' })
 app.use(morgan('common', { stream: accessLogStream }))
-app.use(express.static('public'));
+app.use(express.static('public')); //this allows files to be served out of the public directory which include index.html
+bodyParser = require('body-parser');
+app.use(bodyParser.json());
 
 //Using Models
 const models = require('./models.js');
@@ -20,10 +22,10 @@ let Scores = models.Score;
 //Validate forms
 const { check, validationResult } = require('express-validator');
 
-
-
 //MongoDB Initializing (remember to set environement variable for CONNECTION_URI in API host)
-mongoose.connect('mongodb://localhost:27017/munidb', { useNewUrlParser: true, useUnifiedTopology: true });
+let connection_uri = process.env.CONNECTION_URI || 'mongodb://localhost:27017/munidb';
+mongoose.connect(connection_uri,{useNewUrlParser: true, useUnifiedTopology: true}
+);
 
 //CORS Module
 const cors = require('cors');
@@ -43,7 +45,7 @@ app.use(cors({
 const passport = require('passport');
 let auth = require('./auth')(app);
 require('./passport');
-
+app.use(passport.initialize());
 //Parsing and identifying Middleware 
 const uuid = require('uuid');
 app.use(express.json());
