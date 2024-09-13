@@ -14,18 +14,18 @@ bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 //Using Models
-const models = require('./models.js');
-const mongoose = require('mongoose');
-let Users = models.User;
-let Scores = models.Score;
+//const models = require('./models.js');
+//const mongoose = require('mongoose');
+//let Users = models.User;
+//let Scores = models.Score;
 
 //Validate forms
 const { check, validationResult } = require('express-validator');
 
 //MongoDB Initializing (remember to set environement variable for CONNECTION_URI in API host)
-let connection_uri = process.env.CONNECTION_URI || 'mongodb://localhost:27017/munidb';
-mongoose.connect(connection_uri,{useNewUrlParser: true, useUnifiedTopology: true}
-);
+//let connection_uri = process.env.CONNECTION_URI || 'mongodb://localhost:27017/munidb';
+//mongoose.connect(connection_uri,{useNewUrlParser: true, useUnifiedTopology: true}
+//);
 
 //CORS Module
 const cors = require('cors');
