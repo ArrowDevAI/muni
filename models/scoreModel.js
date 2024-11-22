@@ -1,7 +1,7 @@
 const { DataTypes,Sequelize } = require('sequelize');
 const sequelize = require('../index');
 
-const Score = sequelize.define('Score', {
+const Scores = sequelize.define('Score', {
   scoreid: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -32,4 +32,4 @@ const Score = sequelize.define('Score', {
   timestamps: false,    // No need for createdAt/updatedAt columns as they aren't in the SQL schema
 });
 
-module.exports = Score;
+module.exports = Scores;

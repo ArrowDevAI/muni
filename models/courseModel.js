@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../index');
 
-const Course = sequelize.define('Course', {
+const Courses = sequelize.define('Course', {
   courseid: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -28,4 +28,4 @@ const Course = sequelize.define('Course', {
   timestamps: false      // No "createdAt" or "updatedAt" in this table
 });
 
-module.exports = Course;
+module.exports = Courses;

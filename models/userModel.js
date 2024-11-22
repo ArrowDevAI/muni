@@ -1,7 +1,8 @@
 const { DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../index');
+const bcrypt = require('bcrypt')
 
-const User = sequelize.define('User', {
+const Users = sequelize.define('User', {
   userid: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -39,4 +40,13 @@ const User = sequelize.define('User', {
   updatedAt: 'updatedat'
 });
 
-module.exports = User;
+Users.hashPassword = (password) => {
+  return bcrypt.hashSync(password, 10);  
+};
+
+// Instance method to validate the password
+Users.prototype.validatePassword = function(password) {
+  return bcrypt.compareSync(password, this.password);  // Use lowercase 'password' as defined in the model
+};
+
+module.exports = Users;

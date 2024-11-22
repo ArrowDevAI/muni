@@ -12,10 +12,13 @@ app.use(morgan('common', { stream: accessLogStream }));
 // Serve static files
 app.use(express.static('public')); // Allows files to be served out of the public directory, including index.html
 
-//Built into express.js MIGHT not need
-const bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+//Sequelize Imports
+const Users = require('./models/')
+const Scores = require('./models/scoreModel')
+const Courses = require ('./models/courseModel')
 
 // CORS Configuration
 const cors = require('cors');
@@ -36,7 +39,6 @@ require('dotenv').config();
 
 //Initialize ORM
 const { Sequelize } = require('sequelize');
-
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: 'postgres',
   dialectOptions: {
@@ -47,18 +49,18 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
   }
 });
 
+
 async function testConnection() {
-  try {
-    await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
+    try {
+      await sequelize.authenticate();
+      console.log('Connection has been established successfully.');
+    } catch (error) {
+      console.error('Unable to connect to the database or sync:', error);
+    }
   }
-}
 
-testConnection();
-
-// Export the sequelize instance so it can be used in other files
+  testConnection();
+  
 module.exports = sequelize;
 
 
@@ -77,13 +79,5 @@ app.use('/', loginRoutes); // Local login and Google token exchange
 app.use('/', oAuthRoutes); // Google OAuth routes 
 app.use('/', routes);
 
-
-
-//start the server
-// server.js
-const port = process.env.PORT || 8080;
-app.listen(port, '0.0.0.0', () => {
-    console.log('Listening on port', port);
-});
 
 module.exports = app;
