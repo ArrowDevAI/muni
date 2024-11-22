@@ -1,0 +1,24 @@
+{
+    "development": {
+      "username": "arrowdevai",
+      "password": "Eyesontheprize7!",
+      "database": "database_development",
+      "host": "127.0.0.1",
+      "dialect": "postgre"
+    },
+    "test": {
+      "username": "arrowdevai",
+      "password": "Eyesontheprize7!",
+      "database": "database_test",
+      "host": "127.0.0.1",
+      "dialect": "postgre"
+    },
+    "production": {
+      "username": "arrowdevai",
+      "password": "Eyesontheprize7!",
+      "database": "database_production",
+      "host": "127.0.0.1",
+      "dialect": "postgre"
+    }
+  }
+  
