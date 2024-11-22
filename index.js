@@ -16,7 +16,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //Sequelize Imports
-
+const Users = require('./models/')
+const Scores = require('./models/scoreModel')
+const Courses = require ('./models/courseModel')
 
 // CORS Configuration
 const cors = require('cors');
@@ -46,6 +48,7 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
     }
   }
 });
+
 
 async function testConnection() {
     try {
