@@ -1,4 +1,4 @@
 node_modules
 .env
 buckdancer.json
-config/sconfig.json
+/config/sconfig.json
