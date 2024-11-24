@@ -1,13 +1,14 @@
 // Requiring Express and Establishing Route variables
 const express = require('express');
 const app = express();
-
 // Creation of a log
 const path = require('path');
 const fs = require('fs');
 const morgan = require('morgan');
 const accessLogStream = fs.createWriteStream(path.join(__dirname, '/public/log.txt'), { flags: 'a' });
 app.use(morgan('common', { stream: accessLogStream }));
+require('dotenv').config();
+
 
 // Serve static files
 app.use(express.static('public')); // Allows files to be served out of the public directory, including index.html
@@ -15,10 +16,6 @@ app.use(express.static('public')); // Allows files to be served out of the publi
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//Sequelize Imports
-const Users = require('./models/')
-const Scores = require('./models/scoreModel')
-const Courses = require ('./models/courseModel')
 
 // CORS Configuration
 const cors = require('cors');
@@ -34,37 +31,6 @@ app.use(cors({
     }
 }));
 
-//Initialize .env variables
-require('dotenv').config();
-
-//Initialize ORM
-const { Sequelize } = require('sequelize');
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  dialect: 'postgres',
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false, 
-    }
-  }
-});
-
-
-async function testConnection() {
-    try {
-      await sequelize.authenticate();
-      console.log('Connection has been established successfully.');
-    } catch (error) {
-      console.error('Unable to connect to the database or sync:', error);
-    }
-  }
-
-  testConnection();
-  
-module.exports = sequelize;
-
-
-
 // Passport Initialization
 const passport = require('passport');
 app.use(passport.initialize());
@@ -79,5 +45,17 @@ app.use('/', loginRoutes); // Local login and Google token exchange
 app.use('/', oAuthRoutes); // Google OAuth routes 
 app.use('/', routes);
 
+//Initialize Sequelize and Assign Variables to models
+
+const db = require('./models'); 
+const {sequelize } = db;
+
+sequelize.authenticate()
+  .then(() => {
+    console.log('Database connected');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 module.exports = app;

@@ -1,26 +1,14 @@
 const { check, validationResult } = require('express-validator');
 
-//Database Models
-const Users = require('../models/userModel');
-const Scores = require('../models/scoreModel');
-const Courses = require('../models/courseModel');
+// Database Models
+const { Users, Scores, Courses } = require('../models/index');
 
 const express = require('express');
 const app = express();
 
-const bcrypt = require('bcrypt');
+// Middleware to parse JSON bodies
+app.use(express.json());  
 
-// Users route
-app.get('/users', async (req, res) => {
-    try {
-        const allUsers = await Users.findAll();  // Fetch all users from the database
-        console.log(allUsers);  // Log the result in the server console
-        res.status(200).json(allUsers);  // Optionally, send it back in the response
-    } catch (err) {
-        console.error('Error fetching users:', err);
-        res.status(500).json({ message: 'Error fetching users', error: err.message });
-    }
-});
 
 app.post('/users', [
     check('username', 'Username is Required').isLength({ min: 5 }),
@@ -34,7 +22,6 @@ app.post('/users', [
     }
 
     let hashedPassword = Users.hashPassword(req.body.password);
-    console.log("Request Body: ", req.body, "Hashed Pass: ", hashedPassword);
 
     try {
         const user = await Users.findOne({
@@ -42,7 +29,7 @@ app.post('/users', [
         });
 
         if (user) {
-            return res.status(400).send(req.body.username + ' already exists');
+            return res.status(400).json({ message: `${req.body.username} already exists` });
         } else {
             const newUser = await Users.create({
                 username: req.body.username,
@@ -51,7 +38,7 @@ app.post('/users', [
                 birthday: req.body.birthday
             });
 
-            res.status(201).json(newUser.username + ' added');
+            res.status(201).json({ message: `${newUser.username} added` });
         }
     } catch (err) {
         console.error(err);
@@ -59,32 +46,97 @@ app.post('/users', [
     }
 });
 
+app.put('/users/:username',[
+    check('Username', 'Username must be at least 5 characters long').optional().isLength({ min: 5 }),
+    check('Username', 'Username contains non-alphanumeric characters - not allowed').optional().isAlphanumeric(),
+    check('Email', 'Email does not appear to be valid').optional().isEmail(),
+], 
+passport.authenticate('jwt', { session: false }), async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({
+            status: 422,
+            message: 'Validation errors occurred',
+            errors: errors.array() // Include the array of errors
+        });
+        
+    }
+    
+    if (req.user.Username !== req.params.username) {
+        return res.status(403).json({ message: 'Permission Denied' });
+    }
+    
+    const updateFields = {};
+    const { currentPassword, newPassword } = req.body;
+
+    if (currentPassword && newPassword) {
+        try {
+            // Fetch the user from the database
+            const user = await Users.findOne({ Username: req.params.username });
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+            // Compare current password with stored hashed password
+            const isMatch = await bcrypt.compare(currentPassword, user.password);
+            if (!isMatch) {
+                return res.status(400).json({ message: 'Current password is incorrect' });
+            }
+        
+            // Hash the new password
+            const hashedPassword = await bcrypt.hash(newPassword, 10);
+            updateFields.Password = hashedPassword;
+        } catch (err) {
+            console.error(err);
+            return res.status(500).json({ message: 'Error: ' + err });
+        }
+    }
+
+    if (req.body.username) {
+        updateFields.Username = req.body.username;
+    }
+    if (req.body.email) {
+        updateFields.Email = req.body.email;
+    }
+    if (req.body.birthday) {
+        updateFields.Birthday = req.body.birthday;
+    }
+
+    try {
+        // Update the user in the database
+        const updatedUser = await Users.findOneAndUpdate(
+            { Username: req.params.Username },
+            { $set: updateFields },
+            { new: true }
+        );
+        res.json({ message: 'User updated successfully', user: updatedUser });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error: ' + err });
+    }
+});
+
 // Scores route
 app.post('/scores', async (req, res) => {
-    const { username, course, score } = req.body;
+    const { userid, courseid, score } = req.body;
 
     try {
         // Check if Course and Score are provided
-        if (!course || !score) {
+        if (!courseid || !score) {
             return res.status(400).json({ message: 'Course and Score are required.' });
         }
 
         // Check if the course exists in the allowed courses collection
-        const courseExists = await Courses.findOne({ courseName: course });
+        const courseExists = await Courses.findOne({ where: { courseid: courseid } });
         if (!courseExists) {
             return res.status(400).json({ message: 'Invalid course.' });
         }
 
         // Create a new score document
-        const newScore = new Scores({
-            username: username,
-            course: course,
-            score: score,
-            date: new Date()
+        const newScore = await Scores.create({
+            userid: userid,
+            courseid: courseid,
+            score: score
         });
-
-        // Save the new score document
-        await newScore.save();
 
         // Respond with success message and the new score document
         res.status(201).json({ message: 'Score added successfully', score: newScore });
@@ -93,8 +145,7 @@ app.post('/scores', async (req, res) => {
         console.error('Error adding score:', error);
         res.status(500).json({ message: 'Error adding score', error: error.message });
     }
+    
 });
-
-
 
 module.exports = app;
