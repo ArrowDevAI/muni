@@ -2,7 +2,7 @@ const { check, validationResult } = require('express-validator');
 const passport = require('passport');
 
 // Database Models
-const db = require('../models');
+const db = require('../models/index');
 const { Users, Scores, Courses } = db;
 
 const express = require('express');
