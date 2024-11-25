@@ -657,3 +657,8 @@
 127.0.0.1 - - [09/Oct/2024:22:37:32 +0000] "DELETE /users HTTP/1.1" 200 41
 127.0.0.1 - - [09/Oct/2024:22:38:36 +0000] "GET /auth/google HTTP/1.1" 302 592
 127.0.0.1 - - [09/Oct/2024:22:38:37 +0000] "GET /auth/google/callback?code=4%2F0AVG7fiQLRs6uAvtq-N5Lz5p7thDnNIFude1eFNLsdEMAxiCU5jFJq4V_frCXUSh9gUyMOQ&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=none HTTP/1.1" 200 196
+127.0.0.1 - - [25/Nov/2024:21:23:20 +0000] "POST /users HTTP/1.1" 500 110
+127.0.0.1 - - [25/Nov/2024:21:24:44 +0000] "POST /users HTTP/1.1" 500 110
+127.0.0.1 - - [25/Nov/2024:21:26:33 +0000] "POST /users HTTP/1.1" 500 110
+127.0.0.1 - - [25/Nov/2024:21:28:18 +0000] "POST /users HTTP/1.1" 201 29
+127.0.0.1 - - [25/Nov/2024:21:34:02 +0000] "POST /users HTTP/1.1" 500 110

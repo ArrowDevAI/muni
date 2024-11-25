@@ -3,15 +3,22 @@ require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const { Sequelize } = require('sequelize');
-const sequelize = new Sequelize(process.env.NODE_ENV === 'production' ? process.env.DATABASE_URL_PROD : process.env.DATABASE_URL_DEV, {
-  dialect: 'postgres',
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false, 
-    }
+const sequelize = new Sequelize(
+  process.env.NODE_ENV === 'production'
+    ? process.env.DATABASE_URL_PROD
+    : process.env.DATABASE_URL_DEV,
+  {
+    dialect: 'postgres',
+    dialectOptions: process.env.NODE_ENV === 'production'
+      ? {
+          ssl: {
+            require: true,
+            rejectUnauthorized: false, // Disable strict SSL checks for Heroku
+          },
+        }
+      : {}, // No SSL in development
   }
-});
+);
 
 const basename = path.basename(__filename);
 const db = {};

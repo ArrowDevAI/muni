@@ -10,7 +10,6 @@ const app = express();
 // Middleware to parse JSON bodies
 app.use(express.json());  
 console.log("Current environment:", process.env.NODE_ENV);
-console.log ("USERS:", Users)
 
 app.post('/users', [
     check('username', 'Username is Required').isLength({ min: 5 }),

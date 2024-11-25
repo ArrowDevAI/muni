@@ -28,6 +28,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       allowNull : true
     },
+    birthday: {
+      type: DataTypes.DATE, // Adding the birthday field
+      allowNull: true,       // Set to true if birthday is optional, or false if required
+    },
     // createdAt: {
     //   type: DataTypes.DATE,
     //   defaultValue: DataTypes.NOW
