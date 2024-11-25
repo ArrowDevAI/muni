@@ -39,6 +39,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     tableName: 'users',     // Explicit table name
     timestamps: true,       // Sequelize will manage createdAt/updatedAt
+    createdAt: 'createdat', // Custom name for createdAt
+    updatedAt: 'updatedat', // Custom name for updatedAt
   });
 
   // Static method to hash a password
