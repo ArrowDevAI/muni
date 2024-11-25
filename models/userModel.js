@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING(255),
+      validate: {
+      notEmpty : true,
+      },
+      allowNull : true
     },
     createdAt: {
       type: DataTypes.DATE,
