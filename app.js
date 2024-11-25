@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // CORS Configuration
 const cors = require('cors');
-const allowedOrigins = ['http://127.0.0.1:8080', 'http://localhost:3000'];
+const allowedOrigins = ['http://127.0.0.1:8080', 'http://localhost:3000', 'https://arrowdevai.github.io'];
 app.use(cors({
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);
@@ -41,8 +41,8 @@ const loginRoutes = require('./routes/loginRoutes');
 const oAuthRoutes = require('./routes/oAuthRoutes'); 
 const routes = require('./routes/routes')
 
-app.use('/', loginRoutes); // Local login and Google token exchange
-app.use('/', oAuthRoutes); // Google OAuth routes 
+app.use('/login', loginRoutes); // Local login and Google token exchange
+app.use('/auth', oAuthRoutes); // Google OAuth routes 
 app.use('/', routes);
 
 //Initialize Sequelize and Assign Variables to models

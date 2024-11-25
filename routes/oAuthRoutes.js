@@ -23,7 +23,7 @@ dotenv.config();
 
 app.use(express.json());
 
-app.get('/auth/google', (req, res) => {
+app.get('/google', (req, res) => {
     const authUrl = client.generateAuthUrl({
         access_type: 'offline',
         scope: ['profile', 'email'],  
@@ -33,7 +33,7 @@ app.get('/auth/google', (req, res) => {
 
 
 
-app.get('/auth/google/callback', async (req, res) => {
+app.get('/google/callback', async (req, res) => {
     const { code } = req.query; // Get the authorization code from the query parameters
  if (!code) {
         return res.status(400).send('No code provided');

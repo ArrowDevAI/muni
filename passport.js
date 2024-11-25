@@ -6,7 +6,8 @@ const passportJWT = require('passport-jwt');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 require('dotenv').config();
 
-//let Users = Models.User,  //re-evaluate using Sequelize
+const { Users} = require('./models/index');
+
 const JWTStrategy = passportJWT.Strategy;    
     const ExtractJWT = passportJWT.ExtractJwt;
 

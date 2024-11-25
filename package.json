@@ -2,10 +2,10 @@
   "name": "muni",
   "version": "1.0.0",
   "description": "Muni",
-  "main": "index.js",
+  "main": "app..js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
+    "start": "node server.js",
     "dev": "nodemon server.js"
   },
   "author": "",
