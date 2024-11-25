@@ -1,0 +1,17 @@
+{
+    "production": {
+      "username": "ucb9n2a05i0nsc",
+      "password": "p22327d98570b440a3c00897cc2ffb402277c485f317d8142796ca44bc276da13",
+      "database": "d7pb5jekjr4if3",
+      "host": "cfls9h51f4i86c.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
+      "dialect": "postgres",
+      "port": 5432,
+      "dialectOptions": {
+        "ssl": {
+          "require": true,
+          "rejectUnauthorized": false
+        }
+      }
+    }
+  }
+  
