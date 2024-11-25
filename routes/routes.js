@@ -22,7 +22,7 @@ app.post('/users', [
         return res.status(422).json({ errors: errors.array() });
     }
 
-    let hashedPassword = Users.hashPassword(req.body.password);
+    // let hashedPassword = Users.hashPassword(req.body.password);
 
     try {
         const user = await Users.findOne({
