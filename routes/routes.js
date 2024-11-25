@@ -2,7 +2,7 @@ const { check, validationResult } = require('express-validator');
 const passport = require('passport');
 
 // Database Models
-const { Users, Scores, Courses } = require('../models/index');
+const { Users, Scores, Courses } = require('../models');
 
 const express = require('express');
 const app = express();
@@ -10,7 +10,7 @@ const app = express();
 // Middleware to parse JSON bodies
 app.use(express.json());  
 
-
+console.log("USERS: ", Users)
 app.post('/users', [
     check('username', 'Username is Required').isLength({ min: 5 }),
     check('username', 'Username contains non-alphanumeric characters - not allowed').isAlphanumeric(),
