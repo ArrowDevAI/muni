@@ -48,9 +48,9 @@ app.post('/users', [
 });
 
 app.put('/users/:username',[
-    check('Username', 'Username must be at least 5 characters long').optional().isLength({ min: 5 }),
-    check('Username', 'Username contains non-alphanumeric characters - not allowed').optional().isAlphanumeric(),
-    check('Email', 'Email does not appear to be valid').optional().isEmail(),
+    check('username', 'Username must be at least 5 characters long').optional().isLength({ min: 5 }),
+    check('username', 'Username contains non-alphanumeric characters - not allowed').optional().isAlphanumeric(),
+    check('email', 'Email does not appear to be valid').optional().isEmail(),
 ], 
 passport.authenticate('jwt', { session: false }), async (req, res) => {
     const errors = validationResult(req);
@@ -63,7 +63,7 @@ passport.authenticate('jwt', { session: false }), async (req, res) => {
         
     }
     
-    if (req.user.Username !== req.params.username) {
+    if (req.user.username !== req.params.username) {
         return res.status(403).json({ message: 'Permission Denied' });
     }
     
@@ -73,7 +73,7 @@ passport.authenticate('jwt', { session: false }), async (req, res) => {
     if (currentPassword && newPassword) {
         try {
             // Fetch the user from the database
-            const user = await Users.findOne({ Username: req.params.username });
+            const user = await Users.findOne({ username: req.params.username });
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
@@ -104,11 +104,10 @@ passport.authenticate('jwt', { session: false }), async (req, res) => {
 
     try {
         // Update the user in the database
-        const updatedUser = await Users.findOneAndUpdate(
-            { Username: req.params.Username },
-            { $set: updateFields },
-            { new: true }
-        );
+        const updatedUser = await Users.update(updateFields, {
+            where: { username: req.params.username },
+            returning: true, 
+        });
         res.json({ message: 'User updated successfully', user: updatedUser });
     } catch (err) {
         console.error(err);
