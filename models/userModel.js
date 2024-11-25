@@ -28,14 +28,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       allowNull : true
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
-    }
+    // createdAt: {
+    //   type: DataTypes.DATE,
+    //   defaultValue: DataTypes.NOW
+    // },
+    // updatedAt: {
+    //   type: DataTypes.DATE,
+    //   defaultValue: DataTypes.NOW
+    // }
   }, {
     tableName: 'users',     // Explicit table name
     timestamps: true,       // Sequelize will manage createdAt/updatedAt
