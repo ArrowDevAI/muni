@@ -40,8 +40,8 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'users',     // Explicit table name
     timestamps: true,       // Sequelize will manage createdAt/updatedAt
     underscored: true,      // Auto-map camelCase to snake_case
-    createdat: 'createdat', // Map to the database column
-    updatedat: 'updatedat'  // Map to the database column
+    createdAt: 'createdat', // Map to the database column
+    updatedAt: 'updatedat'  // Map to the database column
   });
 
   // Static method to hash a password
