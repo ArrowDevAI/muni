@@ -12,20 +12,6 @@ app.use(express.json());
 console.log("Current environment:", process.env.NODE_ENV);
 console.log ("USERS:", Users)
 
-app.get('/users', async (req, res) => {
-    try {
-      // Fetch all users from the Users table
-      const users = await Users.findAll();
-      
-      console.log("Users data:", users); // This logs actual user data
-      
-      res.json(users); // Send user data as JSON response
-    } catch (error) {
-      console.error('Error fetching users:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  });
-
 app.post('/users', [
     check('username', 'Username is Required').isLength({ min: 5 }),
     check('username', 'Username contains non-alphanumeric characters - not allowed').isAlphanumeric(),
