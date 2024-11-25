@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Scores = sequelize.define('Score', {
+  const Scores = sequelize.define('scores', {
     scoreid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
