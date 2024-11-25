@@ -8,7 +8,7 @@ module.exports = {
     if (!columns.birthday) {
       await queryInterface.addColumn('users', 'birthday', {
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: true,
       });
     }
   },
