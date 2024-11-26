@@ -11,7 +11,7 @@ const jwtSecret = process.env.JWT_SECRET;
 const { OAuth2Client, auth } = require('google-auth-library');
 const redirect_uris = {
     development: 'http://localhost:3000/auth/google/callback',
-    production: 'https://your-app.herokuapp.com/auth/google/callback',
+    production: 'https://munidb-fb01ab798334.herokuapp.com/auth/google/callback',
 };
 
 const currentRedirectUri =
