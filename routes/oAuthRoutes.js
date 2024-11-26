@@ -9,8 +9,20 @@ const jwtSecret = process.env.JWT_SECRET;
 
 //Google Auth
 const { OAuth2Client, auth } = require('google-auth-library');
-const redirect_uris = ['http://localhost:3000/auth/google/callback', 'https://your-app.herokuapp.com/auth/google/callback']
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET, redirect_uris[0]);
+const redirect_uris = {
+    development: 'http://localhost:3000/auth/google/callback',
+    production: 'https://your-app.herokuapp.com/auth/google/callback',
+};
+
+const currentRedirectUri =
+    process.env.NODE_ENV === 'production' ? redirect_uris.production : redirect_uris.development;
+
+const client = new OAuth2Client(
+    process.env.GOOGLE_CLIENT_ID,
+    process.env.GOOGLE_CLIENT_SECRET,
+    currentRedirectUri
+);
+
 
 const passport = require('../passport');
 //DB ORM for PostGre SQL
