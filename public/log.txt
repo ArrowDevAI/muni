@@ -679,3 +679,8 @@
 127.0.0.1 - - [26/Nov/2024:03:04:12 +0000] "GET /auth/google HTTP/1.1" 302 592
 127.0.0.1 - - [26/Nov/2024:03:04:13 +0000] "GET /auth/google/callback?code=4%2F0AeanS0b8GapZYJPCDfVtRHRCP9x8tOjEIroDiYvpMhE3jgigiJZPoYHEquhnko6IVdrBxA&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&authuser=0&prompt=none HTTP/1.1" 200 196
 127.0.0.1 - - [26/Nov/2024:03:04:13 +0000] "GET /auth/google/callback?code=4%2F0AeanS0b8GapZYJPCDfVtRHRCP9x8tOjEIroDiYvpMhE3jgigiJZPoYHEquhnko6IVdrBxA&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&authuser=0&prompt=none HTTP/1.1" 500 21
+127.0.0.1 - - [26/Nov/2024:03:15:59 +0000] "GET /login HTTP/1.1" 404 144
+127.0.0.1 - - [26/Nov/2024:03:16:04 +0000] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [26/Nov/2024:03:16:06 +0000] "GET /auth/google HTTP/1.1" 302 592
+127.0.0.1 - - [26/Nov/2024:03:16:07 +0000] "GET /auth/google/callback?code=4%2F0AeanS0aU4K2dGkC6cDN2clpBKCOtyzaps1PMNyUU9sh01fRYXyzaTJ8ypkvzuAsua93ABg&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=none HTTP/1.1" 200 196
+127.0.0.1 - - [26/Nov/2024:03:16:07 +0000] "GET /auth/google/callback?code=4%2F0AeanS0aU4K2dGkC6cDN2clpBKCOtyzaps1PMNyUU9sh01fRYXyzaTJ8ypkvzuAsua93ABg&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=none HTTP/1.1" 500 21

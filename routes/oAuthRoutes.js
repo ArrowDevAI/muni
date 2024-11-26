@@ -9,7 +9,7 @@ const jwtSecret = process.env.JWT_SECRET;
 
 //Google Auth
 const { OAuth2Client, auth } = require('google-auth-library');
-const redirect_uris = ['http://localhost:3000/auth/google/callback']
+const redirect_uris = ['http://localhost:3000/auth/google/callback', 'https://your-app.herokuapp.com/auth/google/callback']
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET, redirect_uris[0]);
 
 const passport = require('../passport');
