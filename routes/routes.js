@@ -115,6 +115,25 @@ passport.authenticate('jwt', { session: false }), async (req, res) => {
     }
 });
 
+app.delete('/users', async (req, res) => {
+
+    try {
+        const username = req.body.username;
+        const userId = req.body.userid; // Get the user's ID from the request body
+        // Check if the user exists in the database
+        const user = await Users.findOne({ where: { userid: userId } });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        await Users.destroy({ where: { userid: userId } });
+
+        res.status(200).json({ message: `${username} deleted successfully` });
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 // Scores route
 app.post('/scores', async (req, res) => {
     const { userid, courseid, score } = req.body;
