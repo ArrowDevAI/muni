@@ -46,7 +46,8 @@ app.get('/google', (req, res) => {
 
 
 app.get('/google/callback', async (req, res) => {
-    const { code } = req.query; // Get the authorization code from the query parameters
+    const { code } = req.query; 
+    console.log("code: ", code)
  if (!code) {
         return res.status(400).send('No code provided');
     }
@@ -73,7 +74,8 @@ if (!user) {
     user = await Users.create({
         email,         // Pass the email from Google
         googleId,      // Pass the googleId from Google
-        username       // Provide the username value here
+        username,
+        birthday: null       // Provide the username value here
     });
 }
 
