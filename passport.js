@@ -67,29 +67,35 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 
-      process.env.NODE_ENV === 'production'
-          ? 'https://munidb-fb01ab798334.herokuapp.com/auth/google/callback'
-          : 'https://localhost:3000/auth/google/callback',
-      scope: [
-        'https://www.googleapis.com/auth/userinfo.profile',
-        'https://www.googleapis.com/auth/userinfo.email',
-      ],
+      callbackURL: "/auth/google/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        let user = await Users.findOne({ where: { googleid: profile.id } });
+        // Check if the user exists
+        let user = await Users.findOne({ where: { googleId: profile.id } });
+
         if (!user) {
-          user = await Users.create({
-            googleid: profile.id,
-            username: profile.displayName,
-            email: profile.emails[0]?.value,
-          });
+          // If not found by Google ID, check by email
+          user = await Users.findOne({ where: { email: profile.emails[0].value } });
+          
+          if (!user) {
+            // Create a new user if none exists
+            user = await Users.create({
+              username: profile.displayName,
+              email: profile.emails[0].value,
+              googleId: profile.id,
+            });
+          } else {
+            // Update Google ID for the existing user with this email
+            user.googleId = profile.id;
+            await user.save();
+          }
         }
+
         return done(null, user);
       } catch (error) {
-        console.error('Error in GoogleStrategy:', error);
-        return done(error);
+        console.error("Error in GoogleStrategy:", error);
+        return done(error, null);
       }
     }
   )
