@@ -64,7 +64,7 @@ passport.use(
 // Google OAuth 2.0 Strategy
 const callbackURL = process.env.NODE_ENV === 'production' 
   ? 'https://munidb-fb01ab798334.herokuapp.com/auth/google/callback'
-  : 'http://localhost:3000/auth/google/callback';
+  : 'https://localhost:3000/auth/google/callback';
 
 passport.use(
   new GoogleStrategy(
