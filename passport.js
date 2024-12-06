@@ -77,7 +77,7 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       try {
         // Check if the user exists
-        let user = await Users.findOne({ where: { googleId: profile.id } });
+        let user = await Users.findOne({ where: { googleid: profile.id } });
 
         if (!user) {
           // If not found by Google ID, check by email
@@ -88,11 +88,11 @@ passport.use(
             user = await Users.create({
               username: profile.displayName,
               email: profile.emails[0].value,
-              googleId: profile.id,
+              googleid: profile.id,
             });
           } else {
             // Update Google ID for the existing user with this email
-            user.googleId = profile.id;
+            user.googleid = profile.id;
             await user.save();
           }
         }
