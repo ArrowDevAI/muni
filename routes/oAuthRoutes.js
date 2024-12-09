@@ -12,13 +12,13 @@ app.use(express.json());
 app.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 // Google callback route
-app.get(
-  '/google/callback',
-  passport.authenticate('google', { session: false }),
+app.get('/google/callback', passport.authenticate('google', { session: false }),
   async (req, res) => {
     try {
       const user = req.user; // `req.user` contains the authenticated user
+
       if (!user) {
+        console.error('Error during Google callback:', error);
         return res.status(400).send('User authentication failed');
       }
 
@@ -28,14 +28,18 @@ app.get(
         jwtSecret,
         { expiresIn: '1d' }
       );
-
+console.log("TOKEN", jwtToken)
       // Send JWT back to client
       res.json({ jwtToken });
+      
+  
     } catch (error) {
       console.error('Error during Google callback:', error);
       res.status(500).send('Authentication failed');
     }
   }
+  
 );
+
 
 module.exports = app;

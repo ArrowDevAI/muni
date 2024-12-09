@@ -62,48 +62,40 @@ passport.use(
 );
 
 // Google OAuth 2.0 Strategy
-const callbackURL = process.env.NODE_ENV === 'production' 
-  ? 'https://munidb-fb01ab798334.herokuapp.com/auth/google/callback'
-  : 'https://localhost:3000/auth/google/callback';
 
-passport.use(
+      passport.use(
   new GoogleStrategy(
-    
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: callbackURL, 
+      callbackURL: "http://localhost:3000/auth/google/callback", // Ensure this matches the Google Console redirect URI
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        // Check if the user exists
+        // Find or create a user in your database using the Google profile
         let user = await Users.findOne({ where: { googleid: profile.id } });
 
         if (!user) {
-          // If not found by Google ID, check by email
-          user = await Users.findOne({ where: { email: profile.emails[0].value } });
-          
-          if (!user) {
-            // Create a new user if none exists
-            user = await Users.create({
-              username: profile.displayName,
-              email: profile.emails[0].value,
-              googleid: profile.id,
-            });
-          } else {
-            // Update Google ID for the existing user with this email
-            user.googleid = profile.id;
-            await user.save();
-          }
+          // If the user doesn't exist, create a new user
+          user = await Users.create({
+            username: profile.displayName,
+            email: profile.emails[0].value,
+            googleid: profile.id,
+          });
+        } else {
+          // If the user exists, update any necessary fields
+          user.googleid = profile.id;
+          await user.save();
         }
 
         return done(null, user);
       } catch (error) {
-        console.error("Error in GoogleStrategy:", error);
+        console.error('Error in Google Strategy:', error);
         return done(error, null);
       }
     }
   )
 );
+
 
 module.exports = passport;
