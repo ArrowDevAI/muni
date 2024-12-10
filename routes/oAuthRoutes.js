@@ -9,7 +9,7 @@ const jwtSecret = process.env.JWT_SECRET;
 app.use(express.json());
 
 // Route to initiate Google login
-app.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+app.get('/google', passport.authenticate('google', { scope: ['profile', 'email', 'openid'] }));
 
 // Google callback route
 app.get('/google/callback', passport.authenticate('google', { session: false }),
