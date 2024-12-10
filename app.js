@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // CORS Configuration
 const cors = require('cors');
-const allowedOrigins = ['http://127.0.0.1:8080', 'http://localhost:3000', 'https://arrowdevai.github.io'];
+const allowedOrigins = ['http://127.0.0.1:8080', 'http://localhost:3000', 'https://arrowdevai.github.io','http://localhost:3001'];
 app.use(cors({
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);
