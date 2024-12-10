@@ -72,6 +72,7 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
+        
         // Find or create a user in your database using the Google profile
         let user = await Users.findOne({ where: { googleid: profile.id } });
 
@@ -87,8 +88,9 @@ passport.use(
           user.googleid = profile.id;
           await user.save();
         }
-
+        
         return done(null, user);
+        
       } catch (error) {
         console.error('Error in Google Strategy:', error);
         return done(error, null);
@@ -96,6 +98,16 @@ passport.use(
     }
   )
 );
+GoogleStrategy.prototype.parseErrorResponse = function(body, status) {
+  console.error('Error response from Google:', body);
+  try {
+    const errorResponse = JSON.parse(body);
+    console.error('Parsed error response:', errorResponse);
+  } catch (error) {
+    console.error('Error parsing the error response:', error);
+  }
+  return JSON.parse(body).error_description || 'Unknown error';
+};
 
 
 module.exports = passport;

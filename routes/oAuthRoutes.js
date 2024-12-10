@@ -28,11 +28,9 @@ app.get('/google/callback', passport.authenticate('google', { session: false }),
         jwtSecret,
         { expiresIn: '1d' }
       );
-console.log("TOKEN", jwtToken)
       // Send JWT back to client
-      res.json({ jwtToken });
+      res.json({ token: jwtToken });
       
-  
     } catch (error) {
       console.error('Error during Google callback:', error);
       res.status(500).send('Authentication failed');
