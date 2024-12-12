@@ -12,7 +12,7 @@ app.use(express.json());
 app.get('/google', passport.authenticate('google', { scope: ['profile', 'email', 'openid'] }));
 
 // Google callback route
-app.get('/google/callback', passport.authenticate('google', { session: false }),
+app.get('/google/callback', passport.authenticate('google', { session: false, failureRedirect: '/login' }),
   async (req, res) => {
     try {
       const user = req.user; // `req.user` contains the authenticated user
@@ -24,13 +24,24 @@ app.get('/google/callback', passport.authenticate('google', { session: false }),
 
       // Generate JWT
       const jwtToken = jwt.sign(
-        { id: user.userid, email: user.email },
-        jwtSecret,
-        { expiresIn: '1d' }
+        { 
+          id: user.userid, 
+          email: user.email,
+          provider: 'google' },
+          jwtSecret,
+        { expiresIn: '1d' },
+      
       );
       // Send JWT back to client
-      res.json({ token: jwtToken });
-      
+      res.cookie('token', jwtToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', // Only send over HTTPS in production
+        sameSite: 'lax',
+        maxAge: 24 * 60 * 60 * 1000 // 1 day in milliseconds
+      });
+      res.redirect("https://www.google.com")
+
+
     } catch (error) {
       console.error('Error during Google callback:', error);
       res.status(500).send('Authentication failed');
