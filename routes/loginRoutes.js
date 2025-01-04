@@ -15,7 +15,7 @@ let generateJWTToken = (user) => {
 }
 
 /* POST login. */
-app.post('/login', (req, res) => {
+app.post('/', (req, res) => {
   passport.authenticate('local', { session: false }, (error, user, info) => {
     if (error || !user) {
       return res.status(400).json({
