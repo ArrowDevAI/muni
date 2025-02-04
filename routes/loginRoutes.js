@@ -23,14 +23,44 @@ app.post('/', (req, res) => {
         user: user
       });
     }
+
     req.login(user, { session: false }, (error) => {
       if (error) {
-        res.send(error);
+        return res.send(error);
       }
+
       let token = generateJWTToken(user.toJSON());
-      return res.json({ user, token });
+
+      // Set the HTTP-only cookie before sending the response
+      res.cookie('token', token, {
+        httpOnly: true, 
+        secure: process.env.NODE_ENV === 'production', // Only send over HTTPS in production
+        sameSite: 'lax', // Adjust based on frontend needs
+        maxAge: 24 * 60 * 60 * 1000 // 1 day
+      });
+
+      // Send response after setting cookie
+      return res.json({ user });
     });
-})(req, res);
+  })(req, res);
 });
+
+//route to return user from cookies
+
+app.get('/user', (req, res) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.status(401).json({ message: "Not authenticated" });
+  }
+  try {
+    const decoded = jwt.verify(token, jwtSecret);
+    const user = { id: decoded.id, email: decoded.email }; 
+    return res.json({ user });
+  } catch (error) {
+    console.error("Error verifying token:", error);
+    return res.status(401).json({ message: "Invalid token" });
+  }
+});
+
 
 module.exports = app;

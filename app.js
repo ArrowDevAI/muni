@@ -9,6 +9,9 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, '/public/log.t
 app.use(morgan('common', { stream: accessLogStream }));
 require('dotenv').config();
 
+//parsing httponly cookies for use in frontend
+const cookieParser = require("cookie-parser")
+app.use(cookieParser());
 
 // Serve static files
 app.use(express.static('public')); // Allows files to be served out of the public directory, including index.html
@@ -27,7 +30,8 @@ app.use(cors({
             return callback(new Error(message), false);
         }
         return callback(null, true);
-    }
+    },
+    credentials: true
 }));
 
 // Passport Initialization

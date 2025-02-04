@@ -30,7 +30,6 @@ app.get('/google/callback', passport.authenticate('google', { session: false, fa
           provider: 'google' },
           jwtSecret,
         { expiresIn: '1d' },
-      
       );
       // Send JWT back to client
       res.cookie('token', jwtToken, {

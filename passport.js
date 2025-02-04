@@ -8,11 +8,11 @@ const { Users } = require('./models/index');
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 
-// Local Strategy for username/password authentication
+
 passport.use(
   new LocalStrategy(
     {
-      usernameField: 'username', // Match your field name in the model
+      usernameField: 'username',
       passwordField: 'password',
     },
     async (username, password, done) => {
