@@ -30,7 +30,7 @@ app.post('/', (req, res) => {
       let token = generateJWTToken(user.toJSON());
       return res.json({ user, token });
     });
-  })(req, res);
+})(req, res);
 });
 
 module.exports = app;

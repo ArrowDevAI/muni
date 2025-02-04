@@ -24,37 +24,51 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING(255),
       validate: {
-      notEmpty : true,
+        notEmpty: true,
       },
-      allowNull : true
+      allowNull: true
     },
     birthday: {
-      type: DataTypes.DATE, // Adding the birthday field
-      allowNull: true,       // Set to true if birthday is optional, or false if required
+      type: DataTypes.DATE,
+      allowNull: true
     },
-    // createdAt: {
-    //   type: DataTypes.DATE,
-    //   defaultValue: DataTypes.NOW
-    // },
-    // updatedAt: {
-    //   type: DataTypes.DATE,
-    //   defaultValue: DataTypes.NOW
-    // }
   }, {
-    tableName: 'users',     // Explicit table name
-    timestamps: true,       // Sequelize will manage createdAt/updatedAt
-    createdAt: 'createdat', // Custom name for createdAt
-    updatedAt: 'updatedat', // Custom name for updatedAt
+    tableName: 'users',
+    timestamps: true,
+    createdAt: 'createdat',
+    updatedAt: 'updatedat',
   });
 
   // Static method to hash a password
   Users.hashPassword = (password) => {
-    return bcrypt.hashSync(password, 10);  
+    return bcrypt.hashSync(password, 10);
   };
 
   // Instance method to validate the password
   Users.prototype.validatePassword = function(password) {
     return bcrypt.compareSync(password, this.password);
+  };
+
+  // Add the associate method
+  Users.associate = (models) => {
+    // User has many scores
+    Users.hasMany(models.Scores, {
+      foreignKey: 'userid', // The foreign key in the Scores table
+      as: 'scores'          // Alias for the relationship
+    });
+
+    Users.belongsToMany(models.Leaderboards, { 
+      through: models.LeaderboardUser, 
+      foreignKey: 'userid',
+      as: 'leaderboards'
+    });
+
+    // User belongs to many courses (through the join table 'user_courses')
+    Users.belongsToMany(models.Courses, {
+      through: 'user_courses',  // The join table
+      foreignKey: 'userid',      // Foreign key in the join table for Users
+      as: 'courses'              // Alias for the relationship
+    });
   };
 
   return Users;

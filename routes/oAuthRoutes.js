@@ -39,7 +39,11 @@ app.get('/google/callback', passport.authenticate('google', { session: false, fa
         sameSite: 'lax',
         maxAge: 24 * 60 * 60 * 1000 // 1 day in milliseconds
       });
-      res.redirect("https://www.google.com")
+      const redirectURL = process.env.NODE_ENV === 'production'
+  ? 'https://munidb-fb01ab798334.herokuapp.com/'
+  : 'http://localhost:3001/';
+
+      res.redirect(redirectURL)
 
 
     } catch (error) {

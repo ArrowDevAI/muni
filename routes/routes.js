@@ -2,14 +2,15 @@ const { check, validationResult } = require('express-validator');
 const passport = require('passport');
 
 // Database Models
-const {Users} = require('../models')
+const {Users, Courses, Scores,} = require('../models')
+
 
 const express = require('express');
 const app = express();
 
 // Middleware to parse JSON bodies
 app.use(express.json());  
-console.log("Current environment:", process.env.NODE_ENV);
+
 
 app.post('/users', [
     check('username', 'Username is Required').isLength({ min: 5 }),
@@ -115,7 +116,7 @@ passport.authenticate('jwt', { session: false }), async (req, res) => {
     }
 });
 
-app.delete('/users', async (req, res) => {
+app.delete('/users', passport.authenticate('jwt', { session: false }), async (req, res) => {
 
     try {
         const username = req.body.username;
@@ -134,10 +135,9 @@ app.delete('/users', async (req, res) => {
     }
 });
 
-// Scores route
+//add Authentication when ready
 app.post('/scores', async (req, res) => {
     const { userid, courseid, score } = req.body;
-
     try {
         // Check if Course and Score are provided
         if (!courseid || !score) {
@@ -156,7 +156,7 @@ app.post('/scores', async (req, res) => {
             courseid: courseid,
             score: score
         });
-
+console.log('new score:', newScore)
         // Respond with success message and the new score document
         res.status(201).json({ message: 'Score added successfully', score: newScore });
     } catch (error) {
@@ -165,6 +165,59 @@ app.post('/scores', async (req, res) => {
         res.status(500).json({ message: 'Error adding score', error: error.message });
     }
     
+});
+
+//add Authentication when ready
+app.delete('/scores',  async (req, res) => {
+    const { userid, scoreid } = req.body; // Extract userid and scoreid from the request body
+
+    try {
+        // Validate that the scoreid is provided
+        if (!scoreid) {
+            return res.status(400).json({ message: 'Score ID is required.' });
+        }
+        // Check if the score exists in the database
+        const scoreExists = await Scores.findOne({ where: { scoreid: scoreid, userid: userid } });
+        if (!scoreExists) {
+            return res.status(404).json({ message: 'Score not found or does not belong to the user.' });
+        }
+        // Delete the score
+        await Scores.destroy({
+            where: { scoreid: scoreid, userid: userid },
+        });
+
+        // Respond with success message
+        res.status(200).json({ message: 'Score deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting score:', error);
+        res.status(500).json({ message: 'Error deleting score', error: error.message });
+    }
+});
+
+app.post('/courses', async (req,res)=>{
+const { name, par, city, state } = req.body;
+
+try{ const requiredFields = [name, par, city, state];
+    if (requiredFields.some(field => !field)) {
+      return res.status(400).json({ message: 'All Inputs Required' });
+}
+
+    const courseExists = await Courses.findOne({where : {name : name}});
+    if (courseExists) {
+    return res.status(400).json({message: 'Course name already exists'})}
+    
+    const newCourse = await Courses.create({ 
+        name : name,
+        par: par,
+        city : city,
+        state : state
+     });
+console.log ('new course', newCourse)
+res.status(201).json({ message: 'Course added successfully', course: newCourse });
+}catch {
+    console.error('Error adding course:', error);
+    res.status(500).json({ message: 'Error adding course', error: error.message });
+}
 });
 
 module.exports = app;

@@ -33,6 +33,7 @@ fs
       file.indexOf('.test.js') === -1
     );
   })
+  
   .forEach(file => {
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     console.log('Loaded model:', model.name);
@@ -47,5 +48,7 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+
 
 module.exports = db;

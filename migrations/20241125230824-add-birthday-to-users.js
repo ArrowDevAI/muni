@@ -3,15 +3,22 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    // Add the `birthday` column to the `users` table
-    await queryInterface.addColumn('users', 'birthday', {
-      type: Sequelize.DATE, // You can also use Sequelize.STRING if you want to store a string like 'YYYY-MM-DD'
-      allowNull: true, // Adjust this to `false` if you want the column to be required
-    });
+    // Check if the 'birthday' column already exists in the 'users' table
+    const hasColumn = await queryInterface.sequelize.query(
+      "SELECT column_name FROM information_schema.columns WHERE table_name = 'users' AND column_name = 'birthday';"
+    );
+
+    // If the column does not exist, add it
+    if (hasColumn[0].length === 0) {
+      await queryInterface.addColumn('users', 'birthday', {
+        type: Sequelize.DATE,
+        allowNull: true,
+      });
+    }
   },
 
   down: async (queryInterface, Sequelize) => {
-    // If you need to undo this migration, drop the `birthday` column
+    // Remove the 'birthday' column if it exists
     await queryInterface.removeColumn('users', 'birthday');
   }
 };

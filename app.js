@@ -12,7 +12,6 @@ require('dotenv').config();
 
 // Serve static files
 app.use(express.static('public')); // Allows files to be served out of the public directory, including index.html
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -50,6 +49,8 @@ app.use('/', routes);
 const db = require('./models'); 
 const {sequelize } = db;
 
+
+
 sequelize.authenticate()
   .then(() => {
     console.log('Database connected');
@@ -57,5 +58,7 @@ sequelize.authenticate()
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   });
+
+console.log("Current environment:", process.env.NODE_ENV);
 
 module.exports = app;
